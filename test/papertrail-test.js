@@ -12,6 +12,7 @@ const path = require('path'),
   should = require('should'),
   fs = require('fs'),
   winston = require('winston'),
+  { LEVEL, MESSAGE } = require('triple-beam'),
   net = require('net'),
   tls = require('tls'),
   {
@@ -150,8 +151,8 @@ describe('connection tests', function () {
       connection.on('connect', function () {
         pt.log(
           {
-            level: 'info',
-            message: 'hello',
+            [LEVEL]: 'info',
+            [MESSAGE]: 'hello',
           },
           function () {}
         );
@@ -159,6 +160,8 @@ describe('connection tests', function () {
 
       listener = function (data) {
         should.exist(data);
+
+        console.log('mesage recv', data.toString());
         data
           .toString()
           .indexOf('default - - - info hello\r\n')
@@ -179,8 +182,8 @@ describe('connection tests', function () {
 
       pt.log(
         {
-          level: 'info',
-          message: 'first',
+          [LEVEL]: 'info',
+          [MESSAGE]: 'first',
         },
         function () {}
       );
@@ -192,8 +195,8 @@ describe('connection tests', function () {
       connection.on('connect', function () {
         pt.log(
           {
-            level: 'info',
-            message: 'second',
+            [LEVEL]: 'info',
+            [MESSAGE]: 'second',
           },
           function () {}
         );
@@ -229,8 +232,8 @@ describe('connection tests', function () {
       connection.on('connect', function () {
         pt.log(
           {
-            level: 'info',
-            message: 'hello',
+            [LEVEL]: 'info',
+            [MESSAGE]: 'hello',
             meta: {
               foo: 'bar',
             },
@@ -267,8 +270,8 @@ describe('connection tests', function () {
       connection.on('connect', function () {
         pt.log(
           {
-            level: 'info',
-            message: 'hello',
+            [LEVEL]: 'info',
+            [MESSAGE]: 'hello',
             meta: ['object'],
           },
           function () {}
@@ -304,8 +307,8 @@ describe('connection tests', function () {
         (function () {
           pt.log(
             {
-              level: 'info',
-              message: 'hello',
+              [LEVEL]: 'info',
+              [MESSAGE]: 'hello',
               meta: null,
             },
             function () {}
@@ -340,8 +343,8 @@ describe('connection tests', function () {
       connection.on('connect', function () {
         pt.log(
           {
-            level: 'info',
-            message: 'hello',
+            [LEVEL]: 'info',
+            [MESSAGE]: 'hello',
             meta: 'meta string',
           },
           function () {}
@@ -388,8 +391,8 @@ describe('connection tests', function () {
 
       pt.log(
         {
-          level: 'info',
-          message: 'buffered',
+          [LEVEL]: 'info',
+          [MESSAGE]: 'buffered',
         },
         function () {}
       );
@@ -469,8 +472,8 @@ describe('connection tests', function () {
       connection.on('connect', function () {
         pt.log(
           {
-            level: 'info',
-            message: 'hello',
+            [LEVEL]: 'info',
+            [MESSAGE]: 'hello',
           },
           function () {}
         );
